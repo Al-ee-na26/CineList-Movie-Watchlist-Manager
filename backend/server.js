@@ -7,7 +7,8 @@ import Counter from "./models/Counter.js";
 
 dotenv.config();
 const app = express();
-app.use(cors());
+const frontendUrl = process.env.FRONTEND_URL?.trim();
+app.use(cors(frontendUrl ? { origin: frontendUrl } : undefined));
 app.use(express.json());
 
 const ok = (res, status, message, data = null) => res.status(status).json({ success: true, message, data });
